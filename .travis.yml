@@ -1,33 +1,20 @@
 language: node_js
-
-
-services: 
+services:
 - docker
-
-
 env:
   global:
   - DOCKER_IMAGE_NAME="backend-feed"
   - DOCKER_USERNAME="lindtdev"
-  - secure: "mSg7bAszMaWWMRDZr1SmBP9LwZBRNpjs8cKZRLgS7drYf2+2bRsI429KzzNiGDoqDk2nFajjQgX0VyJV4hq4oZl3uzEZWKK4hfRYRMwpgzYXiMHn1AIA1TitlvwiO/Fb0Ux9NoYD/dyQh5Lq5yarWMlrvmUktll67j6NpUnuo34wRk3fRkAHWDL+9/J0Rk9T0C1ZFaKdMs8oYi1dTzIGO8cm9Hu9hIerJHb5Ft5KPUQWU0SRSpetbtoMFKXrDz4cj4lwpbLV7xxBnMrQow8I2kdWYtx+zv8oC4JE2M3mVAGRD/ytvxUSrCXsRh0n86qdHHutdqvEfeYcmSCcECpDw1cNkEYnL5dxrTTxmKUWu8VcHKjf0KjlPpKwqQzaylEhBMg2sIJbh/9X0K2opOgmq8ay0RzDzdUBZ3/DNE+s1m/Xc9u5lZ6iCwz+FGVnF6ZbMPSaEAmvYkh+Y1ONor7JbslcxBQjzW0kMJIfSGCTk3DxD/S/6MbmDze9/JnkX9b9bfvNZdPMunH+7b2eidnukxrKDtMcbkx5kLEj+105MKewL2/vdYvEbEs5vPYUsNcJ87LpMmXTrNr1qrtkH03lwOxsr7xy3g72fY0nTeWWHf1xriZIDCh5SASoPmJ2Ck5Mm0FdwycBj8L83SjQPqUjNtirrZ2NJsQepSQB/6fanGY="
-#these are going to be replaced by env variables later but for now probably easier to test like this
-
-
+  - secure: c0qN+SbIa6FfbRzGgcngE8xDrY4AlXeRakHNz7iUAroCJYqnoKyP27Qqg7yX/Fr9I5WNTnb6roEHTlNQgn2i9IOkwjPKgn8EybL60Y15QUUjLAyFFfRaOM2ubhdHwEDaE4ZNEjkGI9BzeWNvCxXVDxu99uhUypfMXTSDNNF70KTJjqKX2xuoSm9KAiP2kbMa9c5YV+JUZ8zgn6/0ZgTJpz5GghQyEInHRUgTRGUQtdyJPVuKdTy8KssVLhN3GKgkGMcruG4lN7clVdF1n/iPgBJHlxAXq0pRJAHKn2KnAP/YA4LJRkWjbV2LBV9ICMJnJDs7a6OyT7RU/MaGMIV8jUgt6QoJwQq89DDSQO+uLftY2czD1ocjD01cORbyDu1Uyxv7D1hA9IgRg9DtEEPO6heXRjxFlreJzmuPq8we56XFsUrNCgq2t8nkGEzd32BPlUX/H38Eh9Z/k+FgVPTtDKx2ljHZTiYbCNiiZW4sQhD9cqIrhlSNCDw009wL8dZPGl2/BAftzT7F28k92iwD4aZuZYr7X7lPw2sYP2m7qEapc7GdrmMrBUJ9uSW3/KZTYhrusr/goQCd/hOz9aMA6ckits6dm7SeMu7LDvblCPUVfND0KkJFKxd/3W3CuJIZOnyrGLu6l8fMMWT5SKs4sNeT4Mu1pDTX7Lf52BsNg10=
 before_install:
-  - docker -v
-
-
+- docker -v
 install: true
-
-
 script:
-  - docker build -t $DOCKER_IMAGE_NAME .
-  - docker tag  $DOCKER_IMAGE_NAME $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
-  # add version number??
-
-
+- docker build -t $DOCKER_IMAGE_NAME .
+- docker tag  $DOCKER_IMAGE_NAME $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
 deploy:
   provider: script
-  script: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
+  script: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+    && docker push $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
   on:
     branch: ci
