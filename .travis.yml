@@ -13,8 +13,7 @@ script:
 - docker tag backend-feed lindtdev/backend-feed
 deploy:
   provider: script
-  script: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-   && docker push lindtdev/backend-feed
+  script: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push lindtdev/backend-feed
    # && docker push $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
   on:
     branch: ci
