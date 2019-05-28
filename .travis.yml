@@ -7,4 +7,6 @@ install: true
 script:
   - docker build -t $DOCKER_IMAGE_NAME .
   - docker tag  $DOCKER_IMAGE_NAME $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
+after_success:
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push $DOCKER_USERNAME/$DOCKER_IMAGE_NAME
+  
